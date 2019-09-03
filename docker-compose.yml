@@ -3,9 +3,21 @@ version: '3'
 services:
   jenkins-master:
     image: jenkins/jenkins
+    user: root
     volumes:
       - ./data/jenkins:/var/jenkins_home
+      - /usr/local/bin/docker:/usr/bin/docker
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8080:8080"
       - "50000:50000"
+
+  jenkins-blueocean:
+    image: jenkinsci/blueocean
+    user: root
+    volumes:
+      - ./data/jenkins-blueocean:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "9080:8080"
+      - "60000:50000"

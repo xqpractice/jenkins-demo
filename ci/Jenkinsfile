@@ -1,9 +1,16 @@
 pipeline {
-    agent { docker 'maven:3.3.3' }
+    agent none
     stages {
-        stage('build') {
+        stage('mvn build') {
+            agent { docker 'maven:3.3.3' }
             steps {
                 sh 'mvn --version'
+            }
+        }
+        stage('node build') {
+            agent { docker 'node:7-alpine' }
+            steps {
+                sh 'node --version'
             }
         }
     }
